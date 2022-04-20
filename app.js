@@ -59,7 +59,9 @@ function toggle() {
 }
 
 function start() {
-  button.textContent = "Stop";
+  result = 0;
+  score.textContent = 0;
+  button.textContent = "Surrender";
   const gameover = document.getElementById("gameover");
   gameover.style.display = "none";
   running = true;
@@ -82,15 +84,14 @@ function stop() {
 
   const name = window.webxdc.selfName;
   if (highscore(addr) < result) {
-    const info = name + " puntuó " + result + " en Whack-A-Ninja!";
+    const amount = result === 1 ? "1 point" : result + " points";
+    const info = name + " scored " + amount + " in Whack-A-Ninja!";
     const payload = { addr: addr, name: name, score: result };
     updateHighscore(addr, name, result);
     window.webxdc.sendUpdate({ payload: payload, info: info }, info);
   }
-  lugares.style.display = "flex";
-  showGameOver(name, result);
-  result = 0;
-  score.textContent = 0;
+  //lugares.style.display = "flex";
+  showGameOver(result);
 }
 
 // modified from https://github.com/adbenitez/StackUp.xdc/blob/master/js/index.js
@@ -105,22 +106,22 @@ async function updateLoader() {
   });
 }
 
-function showGameOver(name, result) {
+function showGameOver(result) {
   //event.stopPropagation();
   const gameover = document.getElementById("gameover");
-  gameover.textContent = `${name} scored ${
-    result === 1 ? "only 1 sad point" : result + " points!"
+  gameover.textContent = `You scored ${
+    result === 1 ? "only 1 point" : result + " points!"
   }`;
-  const cerrar = document.createElement("span");
-  cerrar.textContent = "X";
-  cerrar.className = "w3-button w3-display-topright";
-  cerrar.onclick = () =>
-    (document.getElementById("gameover").style.display = "none");
-  cerrar.style.transform = "translate(50%, -60%)";
-  cerrar.style.border = "2px solid whitesmoke";
-  cerrar.style.padding = "3px 6px";
-  cerrar.style.borderRadius = "50%";
-  gameover.appendChild(cerrar);
+  // const cerrar = document.createElement("span");
+  // cerrar.textContent = "X";
+  // cerrar.className = "w3-button w3-display-topright";
+  // cerrar.onclick = () =>
+  //   (document.getElementById("gameover").style.display = "none");
+  // cerrar.style.transform = "translate(50%, -60%)";
+  // cerrar.style.border = "2px solid whitesmoke";
+  // cerrar.style.padding = "3px 6px";
+  // cerrar.style.borderRadius = "50%";
+  //gameover.appendChild(cerrar);
   gameover.style.display = "block";
 }
 
