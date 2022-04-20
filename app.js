@@ -72,6 +72,7 @@ function stop() {
   clearInterval(timerIdCountdown);
   running = false;
   currentTime = 60;
+  hitPosition = null;
   timeLeft.textContent = currentTime;
   const addr = window.webxdc.selfAddr;
 
@@ -92,33 +93,21 @@ function stop() {
   score.textContent = 0;
 }
 
-// stolen from https://github.com/adbenitez/StackUp.xdc/blob/master/js/index.js
-function receiveUpdate(update) {
-  const player = update.payload;
-  updateHighscore(player.addr, player.name, player.score);
-  if (!update.old) {
-    document.getElementById("score-btn").style.display = "block";
-  }
-}
+// modified from https://github.com/adbenitez/StackUp.xdc/blob/master/js/index.js
 
-function receiveOldUpdate(update) {
-  update.old = true;
-  receiveUpdate(update);
-}
-
-function onload() {
-  window.webxdc.setUpdateListener(receiveOldUpdate);
-  // window.webxdc.getAllUpdates().then((updates) => {
-  //   updates.forEach(receiveOldUpdate);
-  //   //game = new Game();
-  //   if (updates.length) {
-  //     document.getElementById("score-btn").style.display = "block";
-  //   }
-  // });
+async function updateLoader() {
+  window.webxdc.setUpdateListener((update) => {
+    update.old = true;
+    const player = update.payload;
+    updateHighscore(player.addr, player.name, player.score);
+    if (update.old) {
+      document.getElementById("score-btn").style.display = "block";
+    }
+  });
 }
 
 function showGameOver(name, result) {
-  event.stopPropagation();
+  //event.stopPropagation();
   const gameover = document.getElementById("gameover");
   gameover.textContent = `${name} scored ${
     result === 1 ? "only 1 sad point" : result + " points!"
@@ -173,13 +162,6 @@ function showScoreboard() {
 
 function updateHighscore(addr, name, score) {
   if (highscore(addr) < score) {
-    // const text =
-    //   "comparing score = " +
-    //   score +
-    //   " with highscore(addr) = " +
-    //   highscore(addr) +
-    //   "in updateHighscore";
-    // console.log(text);
     PLAYERS[addr] = { name: name, score: score };
   }
 }
@@ -199,3 +181,5 @@ function highscores() {
 }
 
 let PLAYERS = {};
+
+updateLoader();
