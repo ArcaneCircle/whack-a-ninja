@@ -2,7 +2,7 @@ const square = document.querySelectorAll(".square");
 const ninja = document.querySelectorAll(".ninja");
 const timeLeft = document.querySelector("#time-left");
 const button = document.querySelector("#toggle");
-const score = document.querySelector("#score");
+const score = document.getElementById("score");
 const lugares = document.getElementById("lugares");
 
 let hitPosition;
@@ -25,9 +25,16 @@ function randomSquare() {
 square.forEach((id) => {
   id.addEventListener("mouseup", () => {
     if (id.id === hitPosition) {
+      clearContainer(score);
       result = result + 1;
       score.textContent = result;
       window.navigator.vibrate(200);
+      // add animation to score
+      let addition = document.createElement("div");
+      addition.classList.add("addition");
+      addition.textContent = "+1";
+      score.style.position = "relative";
+      score.appendChild(addition);
     }
   });
 });
@@ -155,5 +162,11 @@ function highscores() {
 }
 
 let PLAYERS = {};
+
+function clearContainer(container) {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}
 
 updateLoader();
