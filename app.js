@@ -26,15 +26,29 @@ square.forEach((id) => {
   id.addEventListener("mouseup", () => {
     if (id.id === hitPosition) {
       clearContainer(score);
+      clearContainer(id);
       result = result + 1;
       score.textContent = result;
       window.navigator.vibrate(200);
-      // add animation to score
       let addition = document.createElement("div");
+      let additionCopy = document.createElement("div");
       addition.classList.add("addition");
+      additionCopy.classList.add("addition");
       addition.textContent = "+1";
+      additionCopy.textContent = "+1";
+      addition.style.userSelect = "none";
+      additionCopy.style.userSelect = "none";
       score.style.position = "relative";
-      score.appendChild(addition);
+      id.appendChild(addition);
+      score.appendChild(additionCopy);
+    } else if (running) {
+      clearContainer(id);
+      let miss = document.createElement("div");
+      miss.classList.add("addition");
+      miss.style.color = "red";
+      miss.style.userSelect = "none";
+      miss.textContent = "miss";
+      id.appendChild(miss);
     }
   });
 });

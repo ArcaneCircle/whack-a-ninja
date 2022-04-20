@@ -49,6 +49,7 @@ footer {
   border-style: solid;
   border-color: #e63946;
   border-radius: 4px;
+  position: relative;
 }
 
 .grid {
@@ -155,7 +156,7 @@ body div {
   font-size: 25px;
   line-height: 25px;
   font-weight: bold;
-  color: #e6394762;
+  color: rgba(245, 245, 245, 0.644);
   z-index: 100;
   -webkit-animation: move-up 600ms ease-in;
   animation: move-up 600ms ease-in;
