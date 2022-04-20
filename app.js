@@ -97,11 +97,10 @@ function stop() {
 
 async function updateLoader() {
   window.webxdc.setUpdateListener((update) => {
-    update.old = true;
     const player = update.payload;
     updateHighscore(player.addr, player.name, player.score);
-    if (update.old) {
-      document.getElementById("score-btn").style.display = "block";
+    if (update.serial === update.max_serial) {
+      lugares.style.display = "flex";
     }
   });
 }
