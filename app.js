@@ -27,6 +27,7 @@ square.forEach((id) => {
     if (id.id === hitPosition) {
       result = result + 1;
       score.textContent = result;
+      window.navigator.vibrate(200);
     }
   });
 });
