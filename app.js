@@ -9,7 +9,7 @@ let hitPosition;
 let result = 0;
 let currentTime = timeLeft.textContent;
 let running = false;
-let timerIdCountdown; // = setInterval(countDown, 1000);
+let timerIdCountdown;
 
 function randomSquare() {
   square.forEach((className) => {
@@ -18,7 +18,6 @@ function randomSquare() {
   if (running) {
     let randomPosition = square[Math.floor(Math.random() * 9)];
     randomPosition.classList.add("ninja");
-    //assign the id of the randomPosition to hitPosition for us to use later
     hitPosition = randomPosition.id;
   }
 }
@@ -28,10 +27,6 @@ square.forEach((id) => {
     if (id.id === hitPosition) {
       result = result + 1;
       score.textContent = result;
-      // hardcore mode below
-      // } else {
-      //   result = result - 1;
-      //   score.textContent = result;
     }
   });
 });
@@ -77,11 +72,6 @@ function stop() {
   hitPosition = null;
   timeLeft.textContent = currentTime;
   const addr = window.webxdc.selfAddr;
-
-  console.log(addr);
-  console.log("puntuación más alta " + highscore(addr));
-  console.log("puntuación actual " + result);
-
   const name = window.webxdc.selfName;
   if (highscore(addr) < result) {
     const amount = result === 1 ? "1 point" : result + " points";
@@ -90,7 +80,6 @@ function stop() {
     updateHighscore(addr, name, result);
     window.webxdc.sendUpdate({ payload: payload, info: info }, info);
   }
-  //lugares.style.display = "flex";
   showGameOver(result);
 }
 
@@ -107,29 +96,16 @@ async function updateLoader() {
 }
 
 function showGameOver(result) {
-  //event.stopPropagation();
   const gameover = document.getElementById("gameover");
   gameover.textContent = `You scored ${
     result === 1 ? "only 1 point" : result + " points!"
   }`;
-  // const cerrar = document.createElement("span");
-  // cerrar.textContent = "X";
-  // cerrar.className = "w3-button w3-display-topright";
-  // cerrar.onclick = () =>
-  //   (document.getElementById("gameover").style.display = "none");
-  // cerrar.style.transform = "translate(50%, -60%)";
-  // cerrar.style.border = "2px solid whitesmoke";
-  // cerrar.style.padding = "3px 6px";
-  // cerrar.style.borderRadius = "50%";
-  //gameover.appendChild(cerrar);
   gameover.style.display = "block";
 }
 
 function showScoreboard() {
-  event.stopPropagation();
   const container = document.getElementById("scoreboard-container");
   container.innerHTML = "";
-
   const addr = window.webxdc.selfAddr;
   const list = document.createElement("ol");
   list.className = "w3-ol";
@@ -138,11 +114,9 @@ function showScoreboard() {
     name.className = "w3-large";
     name.textContent =
       item.name.length > 20 ? item.name.substring(0, 20) + "…" : item.name;
-
     const score = document.createElement("span");
     score.textContent = item.score;
     score.className = "w3-right";
-
     const li = document.createElement("li");
     if (item.addr == addr) {
       const strong = document.createElement("strong");
@@ -155,7 +129,6 @@ function showScoreboard() {
     }
     list.appendChild(li);
   });
-
   container.appendChild(list);
   document.getElementById("scoreboard").style.display = "block";
 }
