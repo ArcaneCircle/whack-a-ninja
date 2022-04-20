@@ -35,7 +35,11 @@ h2{font-size:30px;font-weight:400;margin:10px 0}
 .w3-button:hover{color:#03071e;background-color:#e63946}
 .w3-black{color:#fff;background-color:#03071e}
 
-footer, .timeBox span {
+footer {
+  margin-bottom: auto;
+}
+
+.timeBox span {
   padding-left: 0.5rem;
 }
 
@@ -72,6 +76,11 @@ body {
   margin: auto;
   background-color: #14213d;
   color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 body div {
@@ -84,8 +93,9 @@ body div {
   justify-content: space-evenly;
   align-items: center;
   height: 64px;
+  width: 100%;
   margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-top: auto;
 }
 
 .scoreBox {
