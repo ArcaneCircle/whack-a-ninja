@@ -29,7 +29,7 @@ square.forEach((id) => {
       clearContainer(id);
       result = result + 1;
       score.textContent = result;
-      window.navigator.vibrate(200);
+      window.navigator.vibrate(100);
       let addition = document.createElement("div");
       let additionCopy = document.createElement("div");
       addition.classList.add("addition");
