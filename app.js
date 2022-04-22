@@ -23,7 +23,7 @@ function randomSquare() {
 }
 
 square.forEach((id) => {
-  id.addEventListener("mouseup", () => {
+  id.addEventListener("mousedown", () => {
     if (id.id === hitPosition) {
       clearContainer(score);
       clearContainer(id);
@@ -51,6 +51,43 @@ square.forEach((id) => {
       id.appendChild(miss);
     }
   });
+});
+
+document.addEventListener("keydown", (e) => {
+  let arr = [7, 8, 9, 4, 5, 6, 1, 2, 3].map((e) => square[e - 1]);
+  if (e.code === "Space") {
+    toggle();
+  }
+  if (running && e.key.match(/[1-9]/)) {
+    e.preventDefault();
+    const key = e.key;
+    if (key === hitPosition) {
+      clearContainer(score);
+      clearContainer(arr[key - 1]);
+      result = result + 1;
+      score.textContent = result;
+      window.navigator.vibrate(200);
+      let addition = document.createElement("div");
+      let additionCopy = document.createElement("div");
+      addition.classList.add("addition");
+      additionCopy.classList.add("addition");
+      addition.textContent = "+1";
+      additionCopy.textContent = "+1";
+      addition.style.userSelect = "none";
+      additionCopy.style.userSelect = "none";
+      score.style.position = "relative";
+      arr[key - 1].appendChild(addition);
+      score.appendChild(additionCopy);
+    } else if (running) {
+      clearContainer(arr[key - 1]);
+      let miss = document.createElement("div");
+      miss.classList.add("addition");
+      miss.style.color = "red";
+      miss.style.userSelect = "none";
+      miss.textContent = "miss";
+      arr[key - 1].appendChild(miss);
+    }
+  }
 });
 
 function moveNinja() {
