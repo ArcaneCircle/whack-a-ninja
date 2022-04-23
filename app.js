@@ -24,7 +24,7 @@ function moveNinja() {
 }
 
 square.forEach((id) => {
-  id.addEventListener("mousedown", () => {
+  id.addEventListener("pointerdown", () => {
     if (id.id === hitPosition) {
       clearContainer(score);
       clearContainer(id);
