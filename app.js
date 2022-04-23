@@ -10,8 +10,9 @@ let result = 0;
 let currentTime = timeLeft.textContent;
 let running = false;
 let timerIdCountdown;
+let timerIdMove;
 
-function randomSquare() {
+function moveNinja() {
   square.forEach((className) => {
     className.classList.remove("ninja");
   });
@@ -90,11 +91,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-function moveNinja() {
-  let timerIdmove = null;
-  timerIdmove = setInterval(randomSquare, 500);
-}
-
 function countDown() {
   currentTime--;
   timeLeft.textContent = currentTime;
@@ -120,12 +116,13 @@ function start() {
   gameover.style.display = "none";
   running = true;
   timerIdCountdown = setInterval(countDown, 1000);
-  moveNinja();
+  timerIdMove = setInterval(moveNinja, 500);
 }
 
 function stop() {
   button.textContent = "Start";
   clearInterval(timerIdCountdown);
+  clearInterval(timerIdMove);
   running = false;
   currentTime = 60;
   hitPosition = null;
