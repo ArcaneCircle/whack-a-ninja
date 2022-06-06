@@ -217,4 +217,7 @@ function clearContainer(container) {
   }
 }
 
+
+window.toggle = toggle;
+window.showScoreboard = showScoreboard;
 updateLoader();
