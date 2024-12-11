@@ -129,7 +129,7 @@ function stop() {
   currentTime = 60;
   hitPosition = null;
   timeLeft.textContent = currentTime;
-  window.highscores.setScore(result)
+  window.highscores.setScore(result);
   showGameOver(result);
 }
 
@@ -147,7 +147,6 @@ function clearContainer(container) {
   }
 }
 
-
 window.toggle = toggle;
 window.showScoreboard = () => {
   const container = document.getElementById("scoreboard-container");
@@ -158,5 +157,5 @@ window.showScoreboard = () => {
 window.highscores.init({
   onHighscoresChanged: () => {
     lugares.style.display = "flex";
-  }
+  },
 });
