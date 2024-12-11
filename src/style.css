@@ -66,7 +66,7 @@ footer {
   background-color: #03071e;
 }
 .ninja {
-  background-image: url("icon.png");
+  background-image: url("/icon.png");
   background-size: cover;
   background-color: #fca311;
 }
