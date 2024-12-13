@@ -6,7 +6,7 @@ A Whack-A-Mole clon for Webxdc
 
 ### Installing Dependencies
 
-After cloning this repo, install dependecies:
+After cloning this repo, install dependencies:
 
 ```
 pnpm i
